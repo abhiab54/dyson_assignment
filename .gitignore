@@ -1,0 +1,5 @@
+*.ipynb
+.ipynb_checkpoints/
+log/superherorun.log
+*.pyc
+test_code/
