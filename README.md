@@ -1,13 +1,13 @@
 # dyson_assignment
 
-commands to execute
-# build images using docker-compose file
+# commands to execute
+### build images using docker-compose file
 docker-compose -f docker-compose.yaml up -d --build
 
-# remove docker containers
+### remove docker containers
 docker-compose -f docker-compose.yaml down
 
-flow of data
+# Data flow
 1. Read cogiguration from config file (.INI)
 2. read csv data from (./data/input) 
 3. merge csv data into a pandas dataframe
