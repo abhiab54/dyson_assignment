@@ -37,8 +37,15 @@ class pg_db():
         self.password = password
         self.host = host
         self.port = port
+        etl_logger.info("create table comics if not found")
+        self.run_sql('./scripts/create_table_comics.sql')
+
+        etl_logger.info("create role postgres if not found")
+        self.run_sql('./scripts/create_role_postgres.sql')
+
         
     def load_data(self, insert_statement, data):
+        
         # connect to the database
         conn = psycopg2.connect(database=self.database, user=self.user, password=self.password, host=self.host, port= self.port)        
         # create a cursor
@@ -50,6 +57,24 @@ class pg_db():
             sql = (insert_statement % record)
             # execute the INSERT statement
             cur.execute(sql)
+        # commit the changes to the database
+        conn.commit()
+        # close the cursor and connection
+        cur.close()
+
+    def run_sql(self, sql_statement):
+        # Open and read the file as a single buffer
+        with open(sql_statement, 'r') as fd:
+            sqlFile = fd.read()
+            fd.close()
+        # connect to the database
+        conn = psycopg2.connect(database=self.database, user=self.user, password=self.password, host=self.host, port= self.port)        
+        # create a cursor
+        cur = conn.cursor()
+        sql = sqlFile
+
+        # execute the INSERT statement
+        cur.execute(sql)
         # commit the changes to the database
         conn.commit()
         # close the cursor and connection

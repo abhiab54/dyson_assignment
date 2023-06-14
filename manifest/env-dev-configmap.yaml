@@ -1,0 +1,13 @@
+apiVersion: v1
+data:
+  database: superhero
+  host: db
+  password: dyson
+  port: "5432"
+  user: dyson
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: python-env-dev
+  name: env-dev

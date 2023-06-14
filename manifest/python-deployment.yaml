@@ -1,0 +1,71 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: C:\Users\abhij\Downloads\kompose.exe convert -f docker-compose.yaml
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: python
+  name: python
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: python
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: C:\Users\abhij\Downloads\kompose.exe convert -f docker-compose.yaml
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/dyson-assignment-default: "true"
+        io.kompose.service: python
+    spec:
+      containers:
+        - env:
+            - name: database
+              valueFrom:
+                configMapKeyRef:
+                  key: database
+                  name: env-dev
+            - name: host
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: env-dev
+            - name: password
+              valueFrom:
+                configMapKeyRef:
+                  key: password
+                  name: env-dev
+            - name: port
+              valueFrom:
+                configMapKeyRef:
+                  key: port
+                  name: env-dev
+            - name: user
+              valueFrom:
+                configMapKeyRef:
+                  key: user
+                  name: env-dev
+          image: python
+          name: python
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app/data
+              name: python-claim0
+            - mountPath: /usr/src/app/logs
+              name: python-claim1
+      restartPolicy: Always
+      volumes:
+        - name: python-claim0
+          persistentVolumeClaim:
+            claimName: python-claim0
+        - name: python-claim1
+          persistentVolumeClaim:
+            claimName: python-claim1
+status: {}

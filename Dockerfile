@@ -18,7 +18,7 @@ COPY ./requirements.txt /usr/src/app/requirements.txt
 RUN pip install -r requirements.txt
 
 
-COPY ./csv_to_json.py /usr/src/app/csv_to_json.py
+COPY ./src/csv_to_json.py /usr/src/app/csv_to_json.py
 RUN ls -lrt
 
 # copy project

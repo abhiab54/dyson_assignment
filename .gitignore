@@ -3,3 +3,5 @@
 log/superherorun.log
 *.pyc
 test_code/
+data/staging/comics_stg.json
+
